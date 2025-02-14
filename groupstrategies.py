@@ -58,3 +58,33 @@ print(strategy2(hist4))
 # Your team's 3rd strategy (leave blank if you are not the driver)
 # Explanation of Strategy:
 # 
+
+def strategy3(history):
+
+    rounds_played = len(history)
+
+    if rounds_played <= 3: # peaceful start
+        return "split"
+    
+    opponent_moves = [round[1] for round in history] # creates a list with all of the opponents moves
+    steal_count = opponent_moves.count("steal")
+    split_count = opponent_moves.count("split")
+
+    steal_ratio = steal_count/rounds_played # ratio of teals to number of rounds
+    split_ratio = split_count/rounds_played
+
+
+    if steal_ratio > 0.6:    
+        return "steal"
+      
+    elif split_ratio > 0.8: # steal if opponent is overly peaceful
+        return "steal"
+        
+    elif steal_ratio < 0.3:
+        return "split"
+        
+    elif steal_ratio == 0.5:
+        return random.choice(["split", "steal"])
+
+    else:
+        return random.choice(["steal", "steal", "steal", "split"])
